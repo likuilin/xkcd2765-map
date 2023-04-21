@@ -1,0 +1,19 @@
+(this is hacky)
+
+to download all the images:
+  mapData.map(e=>e.name).map(e => 'mkdir "' + e + '"').join("\n")
+  mapData.map(e=>e.tiles.map(t=>"wget -nc 'https://xkcd.com/2765/assets/0/tile/" + e.name + "_" + t + "_img.png' -O '" + e.name + "/" + t + ".png'")).flat().join("\n")
+  make sure to uniq first, there's a lot of duplicates due to the starship
+
+to generate zoom levels:
+  move all images to 0
+  mkdir runs 1 2 3 4
+  node generate.js 0
+  ls runs | xargs -I_ bash runs/_
+  node generate.js 1
+  ls runs | xargs -I_ bash runs/_
+  node generate.js 2
+  ls runs | xargs -I_ bash runs/_
+  node generate.js 3
+  ls runs | xargs -I_ bash runs/_
+  rm -rf runs
