@@ -2,6 +2,8 @@
 
 An interactive map for [xkcd 2765](https://xkcd.com/2765/) built using [Leaflet](https://leafletjs.com/).
 
+View it live here: https://xkcd2765-map.kuilin.net/
+
 ## Contributing
 
 Pull requests appreciated.
