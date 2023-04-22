@@ -184,12 +184,11 @@
         const markerLayers = window.objectsData.reduce((result, obj) => {
           if (!result[obj.type]) {
             result[obj.type] = L.layerGroup().addTo(map);
-          } else {
-            L.marker([-obj.y, obj.x], {
-              icon: objIcons[obj.type],
-              title: obj.msg
-            }).addTo(result[obj.type]).on('click', ()=>alert("type: " + obj.type + "\nmsg: " + obj.msg));
           }
+          L.marker([-obj.y, obj.x], {
+            icon: objIcons[obj.type],
+            title: obj.msg
+          }).addTo(result[obj.type]).on('click', ()=>alert("type: " + obj.type + "\nmsg: " + obj.msg));
           return result;
         }, {});
 
