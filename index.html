@@ -179,12 +179,21 @@
           "upgrade-2": L.icon({iconUrl: 'imgs/marker-icon-2x-violet.png', ...iconData}),
           "mbta-token": L.icon({iconUrl: 'imgs/marker-icon-2x-orange.png', ...iconData})
         };
-        for (const {x, y, msg, type} of window.objectsData) {
-          L.marker([-y, x], {
-            icon: objIcons[type],
-            title: msg
-          }).addTo(map).on('click', ()=>alert("type: " + type + "\nmsg: " + msg));
-        }
+
+        // split markers into separate LayerGroups
+        const markerLayers = window.objectsData.reduce((result, obj) => {
+          if (!result[obj.type]) {
+            result[obj.type] = L.layerGroup().addTo(map);
+          }
+          L.marker([-obj.y, obj.x], {
+            icon: objIcons[obj.type],
+            title: obj.msg
+          }).addTo(result[obj.type]).on('click', ()=>alert("type: " + obj.type + "\nmsg: " + obj.msg));
+          return result;
+        }, {});
+
+        // add layer control
+        L.control.layers({}, markerLayers).addTo(map);
       };
     </script>
   </head>
